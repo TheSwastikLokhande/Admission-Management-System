@@ -1,0 +1,140 @@
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title>Check Eligibility</title>
+	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+	    <style>
+	        body {
+	            padding-top: 80px;
+	        }
+	        .eligibility-card {
+	            max-width: 600px;
+	            margin: 0 auto;
+	        }
+	    </style>
+	    
+	     <script>
+	        // On page load, check if the eligibility and percentage session attributes are available
+	        window.onload = function() {
+	            var isEligible = sessionStorage.getItem("isEligible");
+	            var studentPercentage = sessionStorage.getItem("studentPercentage");
+	
+	            if (isEligible && studentPercentage) {
+	                // If eligibility is true, display a success message
+	                if (isEligible === "true") {
+	                    document.getElementById("eligibilityMessage").innerHTML = `
+	                        <div class="alert alert-success">
+	                            <h4>Congratulations!</h4>
+	                            <p>You are eligible for admission.</p>
+	                            <p><strong>Your Percentage:</strong> ${studentPercentage}%</p>
+	                            <p><strong>Required Percentage:</strong> 60%</p>
+	                        </div>
+	                    `;
+	                    
+	                } else {
+	                    // If eligibility is false, display a failure message
+	                    document.getElementById("eligibilityMessage").innerHTML = `
+	                        <div class="alert alert-danger">
+	                            <h4>Sorry!</h4>
+	                            <p>You are not eligible based on your percentage.</p>
+	                            <p><strong>Your Percentage:</strong> ${studentPercentage}%</p>
+	                            <p><strong>Required Percentage:</strong> 60%</p>
+	                        </div>
+	                    `;
+	                }
+	            }
+	        }
+	    </script>
+	    
+	</head>
+	<body class="header" style="	background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/header-background.jpg') center center no-repeat;">
+	    <!-- Navbar -->
+	    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+	        <div class="container header">
+	            <a class="navbar-brand" href="#">Engineering College Admission</a>
+	            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	                <span class="navbar-toggler-icon"></span>
+	            </button>
+	            <div class="collapse navbar-collapse" id="navbarNav">
+	                <ul class="navbar-nav ms-auto">
+	                    <li class="nav-item">
+	                        <a class="nav-link" href="login.html">Login</a>
+	                    </li>
+	                    <li class="nav-item">
+	                        <a class="nav-link" href="registration.html">Register</a>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+	    </nav>
+	
+	    <!-- Eligibility Check Form -->
+	    <div class="container">
+	        <div class="eligibility-card card mt-5">
+	            <div class="card-body">
+	                <h2 class="text-center mb-4">Check Eligibility</h2>
+	                <form action="CheckEligibility" method="POST">
+	                    <div class="mb-3">
+	                        <label for="percentage" class="form-label">Enter Your 12th Class Percentage</label>
+	                        <input type="number" class="form-control" id="percentage" name="percentage" required>
+	                    </div>
+	                    <div class="mb-3">
+	                        <label for="age" class="form-label">Enter Your Age</label>
+	                        <input type="number" class="form-control" id="age" name="age" required>
+	                    </div>
+	                    <div class="mb-3">
+	                        <label for="branch" class="form-label">Select Branch Preference</label>
+	                        <select class="form-select" id="branch" name="branch" required>
+	                            <option value="Computer Science">Computer Science</option>
+	                            <option value="Electrical Engineering">Electrical Engineering</option>
+	                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+	                            <option value="Civil Engineering">Civil Engineering</option>
+	                        </select>
+	                    </div>
+	                    
+	                     <div class="mb-3">
+	                     
+	                     				 <span id="error-message" style="color:red;"></span>
+	                     </div>
+	                     
+	                   
+	                    
+	                    <button type="submit" class="btn btn-primary w-100">Check Eligibility</button>
+	                </form>
+	            </div>
+	        </div>
+	    </div>
+	
+
+	         <div class="container mt-4" style="display: flex;align-items: center;justify-content: center;">
+	        <a id="proceedButton" href="proceed-to-application.html" class="btn btn-success" style="display: none;width: 100%;">Proceed</a>
+	        <a id="goHomeButton" href="index.html" class="btn btn-danger" style="display: none;">Go to Home</a>
+	    </div>
+	
+	    <!-- Bootstrap JS -->
+	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+	    <script>
+	    
+	    const params = new URLSearchParams(window.location.search);
+	    const errorMessagel = params.get("errorMessagel");
+	    const color = params.get("color");
+	
+	    // If errorMessage exists, display it in the error message span
+	    if (errorMessagel) {
+	        document.getElementById("error-message").textContent = errorMessagel;
+	        document.getElementById("error-message").style="color:"+color;
+	       if(errorMessagel=="You are eligible for admission to the Engineering College"){
+	    	   
+	        document.getElementById("proceedButton").style.display = "inline-block"; 
+	    	   
+	       }else if(errorMessagel=="You are not eligible for admission to the Engineering College."){
+	    	   document.getElementById("goHomeButton").style.display = "inline-block";
+	       }
+	       
+	       
+	    }
+	    </script>
+	</body>
+	</html>

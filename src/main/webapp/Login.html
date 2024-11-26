@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, 
+                         initial-scale=1.0">
+<title>Login&Registration</title>
+<link rel="stylesheet" href="login.css">
+</head>
+
+	<body class="header" style="	background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/header-background.jpg') center center no-repeat;">
+	<header>
+
+		<h3 class="title" style="color:white;">Login & Registration Form</h3>
+	</header>
+
+	<!-- container div -->
+	<div class="container" style="    border-radius: 20px;">
+
+		<!-- upper button section to select
+             the login or signup form -->
+		<div class="slider"></div>
+		<div class="btn">
+			<button class="login">Login</button>
+			<button class="signup">Signup</button>
+		</div>
+
+		<!-- Form section that contains the
+             login and the signup form -->
+		<div class="form-section">
+
+			<!-- login form -->
+			<form id="LoginForm" action="LoginServlet" method="POST">
+			<div class="login-box">
+				<input type="email" class="email ele"
+					name="email" placeholder="youremail@email.com"> <input type="password" name="password"
+					class="password ele" placeholder="password">
+				 
+				 <span id="error-message" style="color:red;"></span>
+				 <input type="submit" class="clkbtn" value="Login">
+			</div>
+		 </form>
+			<!-- signup form -->
+			<form id="signupForm" action="SignUpServlet" method="POST">
+                <div class="signup-box">
+                    <input type="text" class="name ele" name="name" placeholder="Enter your name">
+                    <input type="email" class="email ele" name="email" placeholder="youremail@email.com">
+                    <input type="password" class="password ele" name="password" placeholder="password">
+                    <input type="password" class="password ele" name="confirmPassword" placeholder="Confirm password">
+                    <span id="errorMessage" style="color: red;"></span> <!-- Display error -->
+                    <input type="submit" class="clkbtn" value="SignUp">
+                </div>
+            </form>
+		</div>
+	</div>
+	<script type="text/javascript">
+	const params = new URLSearchParams(window.location.search);
+    const errorMessagel = params.get("errorMessagel");
+
+    // If errorMessage exists, display it in the error message span
+    if (errorMessagel) {
+        document.getElementById("error-message").textContent = errorMessagel;
+    }
+	
+	
+	
+        let signup = document.querySelector(".signup");
+        let login = document.querySelector(".login");
+        let slider = document.querySelector(".slider");
+        let formSection = document.querySelector(".form-section");
+        let signupForm = document.getElementById("signupForm"); // Get the signup form
+        let errorMessage = document.getElementById("errorMessage"); // Error message element
+
+        // Handle slider movement
+        signup.addEventListener("click", () => {
+            slider.classList.add("moveslider");
+            formSection.classList.add("form-section-move");
+        });
+
+        login.addEventListener("click", () => {
+            slider.classList.remove("moveslider");
+            formSection.classList.remove("form-section-move");
+        });
+
+        // Validate signup form
+        signupForm.addEventListener("submit", (e) => {
+            let password = signupForm.querySelector("input[name='password']");
+            let confirmPassword = signupForm.querySelector("input[name='confirmPassword']");
+			console.log(password);
+			console.log(confirmPassword);
+            if (password.value !== confirmPassword.value) {
+                e.preventDefault(); // Prevent form submission
+                errorMessage.textContent = "Passwords do not match. Please try again.";
+                console.error("Password validation failed");
+            } else {
+                errorMessage.textContent = ""; // Clear error message if passwords match
+            }
+        });
+    </script>
+</body>
+</html>
