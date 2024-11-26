@@ -53,9 +53,11 @@ This project is an Engineering College Admission System built using Java Servlet
 
 ![Registration Page Screenshot](screenshot/apply_5.png)
 
-![Payment Page Screenshot](screenshot/payment.png.png)
+![Payment Page Screenshot](screenshot/payment.png)
 
-![uploadDocuments Page Screenshot](screenshot/uploadDocuments.png.png.png)
+![uploadDocuments Page Screenshot](screenshot/uploadDocuments.png)
+
+![Payment Page Screenshot](screenshot/payment.png)
 
 ## Technologies Used
 - **Backend**: Java Servlets
